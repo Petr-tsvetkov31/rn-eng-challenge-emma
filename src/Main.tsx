@@ -1,20 +1,21 @@
+import Constants from 'expo-constants'
 import { StatusBar } from 'expo-status-bar'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+
+import SnapCarousel from './components/SnapCarousel'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: 'white',
+    paddingTop: Constants.statusBarHeight
   }
 })
 
 export default function Main() {
   return (
     <View style={styles.container}>
-      <Text>Hello there!</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" hidden={false} backgroundColor="black" />
+      <SnapCarousel />
     </View>
   )
 }
