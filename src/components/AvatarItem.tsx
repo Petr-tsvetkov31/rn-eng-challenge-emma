@@ -1,5 +1,10 @@
 import { ReactElement, memo } from 'react'
 import { View, StyleSheet, Image, Pressable } from 'react-native'
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming
+} from 'react-native-reanimated'
 
 import { UserItem } from '../helpers/types'
 import { getAvatarSource } from '../helpers/utils'
@@ -13,8 +18,8 @@ type Props = {
 
 const HorizontalMargin = 10
 const Size = 64
-const BorderWidth = 2
-export const ItemWidth = Size + HorizontalMargin * 2 + BorderWidth * 2
+const BorderWidth = 2.5
+export const ItemWidth = Size + HorizontalMargin * 2
 
 const styles = StyleSheet.create({
   container: {
@@ -26,13 +31,15 @@ const styles = StyleSheet.create({
     height: Size,
     width: Size
   },
-  border: {
+  absoluteBorderView: {
+    position: 'absolute',
+    top: -BorderWidth,
+    left: -BorderWidth,
+    height: Size + BorderWidth * 2,
+    width: Size + BorderWidth * 2,
     borderWidth: BorderWidth,
     borderRadius: Size / 2 + BorderWidth * 2,
-    borderColor: 'transparent'
-  },
-  isSelected: {
-    borderColor: '#c9dff2'
+    borderColor: '#0985f1'
   }
 })
 
@@ -47,12 +54,26 @@ export function AvatarItem({
   }
 
   const source = getAvatarSource(name)
+
+  const animatedOpacity = useDerivedValue(() => {
+    return isSelected ? 1 : 0
+  }, [isSelected])
+
+  const borderViewOpacityStyle = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(animatedOpacity.value, {
+        duration: 500
+      })
+    }
+  }, [animatedOpacity])
+
   return (
     <View style={styles.container}>
       <Pressable onPress={_onPress}>
-        <View style={[styles.border, isSelected && styles.isSelected]}>
-          <Image style={styles.logo} source={source} />
-        </View>
+        <Animated.View
+          style={[styles.absoluteBorderView, borderViewOpacityStyle]}
+        />
+        <Image style={styles.logo} source={source} />
       </Pressable>
     </View>
   )
