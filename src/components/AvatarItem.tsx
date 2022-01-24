@@ -1,13 +1,8 @@
-import React, { ReactElement } from 'react'
+import { ReactElement, memo } from 'react'
 import { View, StyleSheet, Image, Pressable } from 'react-native'
 
+import { UserItem } from '../helpers/types'
 import { getAvatarSource } from '../helpers/utils'
-
-export type UserItem = {
-  id: string
-  name: string
-  path: string
-}
 
 type Props = {
   onPress: (index: number) => void
@@ -17,29 +12,31 @@ type Props = {
 }
 
 const HorizontalMargin = 10
-const Size = 60
-const BorderWidth = 3
+const Size = 64
+const BorderWidth = 2
 export const ItemWidth = Size + HorizontalMargin * 2 + BorderWidth * 2
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: HorizontalMargin,
-    borderWidth: BorderWidth,
-    borderRadius: Size / 2 + BorderWidth,
-    borderColor: 'transparent'
+    marginHorizontal: HorizontalMargin
   },
   logo: {
     height: Size,
     width: Size
+  },
+  border: {
+    borderWidth: BorderWidth,
+    borderRadius: Size / 2 + BorderWidth * 2,
+    borderColor: 'transparent'
   },
   isSelected: {
     borderColor: '#c9dff2'
   }
 })
 
-export default function AssetExample({
+export function AvatarItem({
   isSelected,
   index,
   onPress,
@@ -51,10 +48,14 @@ export default function AssetExample({
 
   const source = getAvatarSource(name)
   return (
-    <View style={[styles.container, isSelected && styles.isSelected]}>
+    <View style={styles.container}>
       <Pressable onPress={_onPress}>
-        <Image style={styles.logo} source={source} />
+        <View style={[styles.border, isSelected && styles.isSelected]}>
+          <Image style={styles.logo} source={source} />
+        </View>
       </Pressable>
     </View>
   )
 }
+
+export const MemoizedAvatarItem = memo(AvatarItem)

@@ -60,3 +60,10 @@ export function getAvatarSource(name: string) {
       return null
   }
 }
+
+export function getNames(name: string) {
+  const replaced = name.replace('-', ' ')
+  const first = replaced.slice(0, replaced.indexOf(' '))
+  const last = replaced.slice(replaced.indexOf(' ') + 1)
+  return { first, last }
+}
