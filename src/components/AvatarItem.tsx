@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: Size + BorderWidth * 2,
     borderWidth: BorderWidth,
     borderRadius: Size / 2 + BorderWidth * 2,
-    borderColor: '#0985f1'
+    borderColor: '#c9dff2'
   }
 })
 
@@ -68,7 +68,7 @@ export function AvatarItem({
   }, [animatedOpacity])
 
   return (
-    <View style={styles.container}>
+    <View testID="AvatarItem" style={styles.container}>
       <Pressable onPress={_onPress}>
         <Animated.View
           style={[styles.absoluteBorderView, borderViewOpacityStyle]}

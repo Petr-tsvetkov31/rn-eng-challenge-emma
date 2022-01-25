@@ -1,5 +1,6 @@
-import Main from './src/Main'
+import UsersData from './data.json'
+import Contacts from './src/Contacts'
 
 export default function App() {
-  return <Main />
+  return <Contacts users={UsersData.users} />
 }

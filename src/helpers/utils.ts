@@ -67,3 +67,25 @@ export function getNames(name: string) {
   const last = replaced.slice(replaced.indexOf(' ') + 1)
   return { first, last }
 }
+
+export function getOffsetFromPercentage({
+  offsetPercentage,
+  viewSize
+}: {
+  offsetPercentage: number
+  viewSize: number
+}) {
+  'worklet'
+  return (offsetPercentage / 100) * viewSize
+}
+
+export function getOffsetPercentage({
+  offset,
+  viewSize
+}: {
+  offset: number
+  viewSize: number
+}) {
+  'worklet'
+  return (100 * offset) / viewSize
+}

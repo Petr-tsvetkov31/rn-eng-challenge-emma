@@ -5,8 +5,4 @@ export type UserItem = {
   description: string
 }
 
-export type UsersData = {
-  users: UserItem[]
-}
-
 export type ActiveScroll = 'none' | 'carousel' | 'pager'

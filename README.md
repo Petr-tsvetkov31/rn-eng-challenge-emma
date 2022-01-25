@@ -1,6 +1,6 @@
 <h1 align="center">React Native Engineering Challenge 🍬</h1>
 
-<p align="center">This is an test project to showcase good React Native engineering practices</p>
+<p align="center">This is a test project to showcase good React Native engineering practices</p>
 
 ## Quick Start
 This project uses [Expo Managed Workflow](https://docs.expo.dev/introduction/managed-vs-bare/#managed-workflow) for faster development process and easier access to test and run the application, if you do not have Expo installed locally on your machine, please install it according to [this doc](https://docs.expo.dev/get-started/installation/#installing-expo-cli).
@@ -14,7 +14,8 @@ This project uses [Expo Managed Workflow](https://docs.expo.dev/introduction/man
 - `yarn start` - starts react-native metro bundler
 - `yarn android` - starts the app in Android emulator
 - `yarn ios` - starts the app in iOS simulator
-- `yarn format-lint` - formats and checks the code
+- `yarn check-code` - formats, lints and running tests
+- `yarn test` - run tests
 
 ## Notes
 

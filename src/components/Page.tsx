@@ -50,7 +50,7 @@ export function Page({
   const { first, last } = getNames(name)
 
   return (
-    <View style={styles.container}>
+    <View testID="Page" style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.name}>
           <Text style={styles.bold}>{first} </Text>
