@@ -6,3 +6,8 @@ export type UserItem = {
 }
 
 export type ActiveScroll = 'none' | 'carousel' | 'pager'
+
+export type MainStackType = {
+  Contacts: { users: UserItem[] }
+  ContactDetails: { user: UserItem }
+}

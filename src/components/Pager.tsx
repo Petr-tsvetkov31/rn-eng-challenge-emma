@@ -16,12 +16,14 @@ import Animated, {
 
 import { ActiveScroll, UserItem } from '../helpers/types'
 import { getOffsetFromPercentage, getOffsetPercentage } from '../helpers/utils'
-import { MemoizedPage, PageHeight } from './Page'
+import { MemoizedPage } from './Page'
 
 type Props = {
   users: UserItem[]
   positionPercentage: Animated.SharedValue<number>
   activeScroll: Animated.SharedValue<ActiveScroll>
+  pageHeight: number
+  onShowDetails: (index: number) => void
 }
 
 type Handle = {
@@ -29,7 +31,7 @@ type Handle = {
 }
 
 const Pager: ForwardRefRenderFunction<Handle, Props> = (
-  { users, positionPercentage, activeScroll },
+  { users, positionPercentage, activeScroll, pageHeight, onShowDetails },
   componentRef
 ) => {
   const scrollRef = useAnimatedRef<Animated.ScrollView>()
@@ -50,8 +52,16 @@ const Pager: ForwardRefRenderFunction<Handle, Props> = (
     [scrollToOffset]
   )
 
-  const renderItem = (user: UserItem) => {
-    return <MemoizedPage key={user.id} user={user} />
+  const renderItem = (user: UserItem, index: number) => {
+    return (
+      <MemoizedPage
+        key={user.id}
+        user={user}
+        index={index}
+        pageHeight={pageHeight}
+        onShowDetails={onShowDetails}
+      />
+    )
   }
 
   const scrollHandler = useAnimatedScrollHandler(
@@ -59,7 +69,7 @@ const Pager: ForwardRefRenderFunction<Handle, Props> = (
       onScroll: (event) => {
         positionPercentage.value = getOffsetPercentage({
           offset: event.contentOffset.y,
-          viewSize: PageHeight
+          viewSize: pageHeight
         })
       },
       onBeginDrag: () => {
@@ -75,7 +85,7 @@ const Pager: ForwardRefRenderFunction<Handle, Props> = (
   useDerivedValue(() => {
     const offsetY = getOffsetFromPercentage({
       offsetPercentage: positionPercentage.value,
-      viewSize: PageHeight
+      viewSize: pageHeight
     })
     if (activeScroll.value === 'carousel') {
       scrollTo(scrollRef, 0, offsetY, false)
@@ -96,7 +106,7 @@ const Pager: ForwardRefRenderFunction<Handle, Props> = (
       showsVerticalScrollIndicator={false}
       renderToHardwareTextureAndroid
       decelerationRate="fast"
-      snapToInterval={PageHeight}
+      snapToInterval={pageHeight}
       onScroll={scrollHandler}
       scrollEventThrottle={1}
       removeClippedSubviews

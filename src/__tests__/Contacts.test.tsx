@@ -1,12 +1,26 @@
-import { describe, expect, it } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
 import { render } from '@testing-library/react-native'
 
 import UsersData from '../../data.json'
 import Contacts from '../Contacts'
 
+const goBack = jest.fn()
+const navigate = jest.fn()
+const setOptions = jest.fn()
+
 describe('<Contacts />', () => {
   it('should render contacts', () => {
-    const { getAllByTestId } = render(<Contacts users={UsersData.users} />)
+    const { getAllByTestId } = render(
+      <Contacts
+        route={{
+          params: { users: UsersData.users },
+          key: '',
+          name: 'Contacts'
+        }}
+        //@ts-ignore
+        navigation={{ goBack, navigate, setOptions }}
+      />
+    )
 
     const avatarElements = getAllByTestId('AvatarItem')
     expect(avatarElements.length).toBe(UsersData.users.length)
@@ -16,7 +30,17 @@ describe('<Contacts />', () => {
   })
 
   it('after initial render first user should be selected', () => {
-    const { getAllByTestId } = render(<Contacts users={UsersData.users} />)
+    const { getAllByTestId } = render(
+      <Contacts
+        route={{
+          params: { users: UsersData.users },
+          key: '',
+          name: 'Contacts'
+        }}
+        //@ts-ignore
+        navigation={{ goBack, navigate, setOptions }}
+      />
+    )
     const avatarElements = getAllByTestId('AvatarItem')
     const firstAvatar = avatarElements[0].parent.parent
 

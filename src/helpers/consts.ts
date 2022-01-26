@@ -1,1 +1,1 @@
-export const CarouselContainerHeight = 150
+export const CarouselContainerHeight = 100

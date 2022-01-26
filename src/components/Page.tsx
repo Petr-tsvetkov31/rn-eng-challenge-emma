@@ -1,19 +1,11 @@
-import Constants from 'expo-constants'
 import React, { ReactElement, memo } from 'react'
-import { View, StyleSheet, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, Text, Button } from 'react-native'
 
-import { CarouselContainerHeight } from '../helpers/consts'
 import { UserItem } from '../helpers/types'
 import { getNames } from '../helpers/utils'
 
-export const PageHeight =
-  Dimensions.get('screen').height -
-  CarouselContainerHeight -
-  Constants.statusBarHeight
-
 const styles = StyleSheet.create({
   container: {
-    height: PageHeight,
     alignItems: 'center'
   },
   topContainer: {
@@ -37,20 +29,36 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 4,
     color: '#a7a7a7'
+  },
+  buttonContainer: {
+    paddingVertical: 10,
+    alignItems: 'flex-start',
+    width: '100%',
+    paddingHorizontal: 4
   }
 })
 
 type Props = {
   user: UserItem
+  pageHeight: number
+  index: number
+  onShowDetails: (index: number) => void
 }
 
 export function Page({
-  user: { name, position, description }
+  user: { name, position, description },
+  pageHeight,
+  index,
+  onShowDetails
 }: Props): ReactElement {
   const { first, last } = getNames(name)
 
+  const onDetails = () => {
+    onShowDetails(index)
+  }
+
   return (
-    <View testID="Page" style={styles.container}>
+    <View testID="Page" style={[styles.container, { height: pageHeight }]}>
       <View style={styles.topContainer}>
         <Text style={styles.name}>
           <Text style={styles.bold}>{first} </Text>
@@ -62,6 +70,10 @@ export function Page({
       <View style={styles.descriptionContainer}>
         <Text style={styles.bold}>About me</Text>
         <Text style={styles.description}>{description}</Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button title="More Details" color="#52a8f3" onPress={onDetails} />
       </View>
     </View>
   )

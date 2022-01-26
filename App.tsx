@@ -1,6 +1,11 @@
-import UsersData from './data.json'
-import Contacts from './src/Contacts'
+import { NavigationContainer } from '@react-navigation/native'
+
+import MainStack from './src/navigation/MainStack'
 
 export default function App() {
-  return <Contacts users={UsersData.users} />
+  return (
+    <NavigationContainer>
+      <MainStack />
+    </NavigationContainer>
+  )
 }

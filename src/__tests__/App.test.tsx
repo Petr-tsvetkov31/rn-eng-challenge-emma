@@ -7,8 +7,9 @@ import React from 'react'
 import App from '../../App.tsx'
 
 describe('<App />', () => {
-  it('should render ContactsScreen', () => {
+  it('should render SafeArea', () => {
     const tree = render(<App />).toJSON()
-    expect(tree.props.testID).toBe('ContactsScreen')
+
+    expect(tree.type).toBe('RNCSafeAreaProvider')
   })
 })
