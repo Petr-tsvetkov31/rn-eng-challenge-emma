@@ -5,7 +5,7 @@ import UsersData from '../../data.json'
 import Contacts from '../Contacts'
 
 describe('<Contacts />', () => {
-  it('should render 3 contacts', () => {
+  it('should render contacts', () => {
     const { getAllByTestId } = render(<Contacts users={UsersData.users} />)
 
     const avatarElements = getAllByTestId('AvatarItem')
