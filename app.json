@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "emma-eng-challenge",
     "name": "rn-eng-challenge-emma",
     "slug": "rn-eng-challenge-emma",
     "version": "1.0.0",
